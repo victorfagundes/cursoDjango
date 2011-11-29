@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} {{post.title}} {% endblock %}
+{% block content %}
+
+{% if teve_comentario %}
+    <p><strong>Seu comentario esta aguardando aprovaçao</strong></p>
+{% endif %}
+
+<h1>{{post.title}}</h1>
+
+<p>{{post.post}}</p>
+
+<h2>Comentarios:</h2>
+
+<ul>
+{% for c in comments %}
+    <li>{{c.comment}}</li>
+{% endfor %}
+</ul>
+
+<form method="post" action="{% url blog.views.post id=post.id %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" />
+</form>
+
+{% endblock %}
